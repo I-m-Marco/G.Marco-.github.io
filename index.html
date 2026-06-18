@@ -1,249 +1,1014 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.Sc. Romel Percy Melgarejo Bolivar | Perfil Profesional y Académico</title>
-    <style>
-        :root {
-            --primary: #1e3a8a;
-            --secondary: #0284c7;
-            --dark: #1f2937;
-            --light: #f3f4f6;
-            --white: #ffffff;
-            --accent: #f59e0b;
-        }
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 4rem 1rem;
-            text-align: center;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .container {
-            max-width: 950px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        section {
-            background-color: var(--white);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        h2 {
-            color: var(--primary);
-            border-bottom: 2px solid var(--secondary);
-            padding-bottom: 0.4rem;
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-        ul {
-            list-style-type: none;
-        }
-        li {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: var(--secondary);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        .badge {
-            background-color: var(--light);
-            color: var(--primary);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 0.3rem;
-        }
-        .project-title {
-            font-weight: bold;
-            color: var(--dark);
-        }
-        .btn-verify {
-            display: inline-flex;
-            align-items: center;
-            background-color: var(--primary);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: 0.5rem;
-            transition: background-color 0.3s;
-        }
-        .btn-verify:hover {
-            background-color: var(--secondary);
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            header h1 {
-                font-size: 2rem;
-            }
-        }
-        footer {
-            text-align: center;
-            padding: 3rem 1rem;
-            font-size: 0.9rem;
-            color: #6b7280;
-            background-color: #e5e7eb;
-            margin-top: 3rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marco Chura | Portafolio Profesional</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --bg-primary: #020915;
+    --bg-secondary: #040e24;
+    --bg-card: rgba(5, 18, 50, 0.75);
+    --blue: #1d8eff;
+    --blue-bright: #4db8ff;
+    --cyan: #00d4ff;
+    --cyan-soft: #7ee8ff;
+    --blue-dark: #0a4fa8;
+    --blue-mid: #0d6fd4;
+    --text-primary: #daeeff;
+    --text-secondary: #7aafd4;
+    --border: rgba(29, 142, 255, 0.15);
+    --border-glow: rgba(29, 142, 255, 0.5);
+    --glow-blue: 0 0 24px rgba(29, 142, 255, 0.35);
+    --glow-cyan: 0 0 24px rgba(0, 212, 255, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  #bg-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(29,142,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(29,142,255,0.04) 1px, transparent 1px);
+    background-size: 55px 55px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(2, 9, 21, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 700;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-toggle { display: none; cursor: pointer; color: var(--blue); font-size: 1.5rem; background: none; border: none; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 6rem 2rem 4rem; text-align: center;
+  }
+  .hero-content { max-width: 900px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.4rem 1.2rem; border: 1px solid rgba(0, 212, 255, 0.35);
+    border-radius: 100px; font-size: 0.75rem; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 1.5rem;
+    background: rgba(0,212,255,0.06);
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+
+  .avatar-ring {
+    width: 148px; height: 148px; margin: 0 auto 2rem; position: relative;
+  }
+  .avatar-ring::before {
+    content: ''; position: absolute; inset: -4px; border-radius: 50%;
+    background: conic-gradient(var(--blue), var(--cyan), var(--blue-dark), var(--blue-bright), var(--blue));
+    animation: spin 4s linear infinite; z-index: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .avatar-inner {
+    position: relative; width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, #061530, #0a2060);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', sans-serif; font-size: 2.6rem; font-weight: 900;
+    color: var(--blue-bright); z-index: 1; overflow: hidden;
+    border: 3px solid var(--bg-primary);
+  }
+
+  .hero-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 900; line-height: 1.1; letter-spacing: 2px; margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, var(--blue-bright) 50%, var(--cyan) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-subtitle {
+    font-size: clamp(0.85rem, 2vw, 1rem); color: var(--text-secondary);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+
+  .typed-container {
+    height: 2.5rem; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .typed-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    font-weight: 600; color: var(--cyan);
+  }
+  .typed-cursor {
+    width: 2px; height: 1.4em; background: var(--cyan);
+    display: inline-block; margin-left: 3px; animation: blink 0.7s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .hero-desc {
+    max-width: 620px; margin: 0 auto 2.5rem;
+    color: var(--text-secondary); font-size: 0.97rem; line-height: 1.85;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    border: none; border-radius: 8px; color: #fff;
+    font-weight: 600; font-size: 0.9rem; cursor: pointer;
+    letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    box-shadow: 0 0 30px rgba(29,142,255,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(29,142,255,0.55); }
+
+  .btn-secondary {
+    padding: 0.85rem 2rem;
+    background: transparent; border: 1px solid var(--border-glow);
+    border-radius: 8px; color: var(--blue-bright);
+    font-weight: 600; font-size: 0.9rem; cursor: pointer;
+    letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-secondary:hover { background: rgba(29,142,255,0.1); box-shadow: var(--glow-blue); transform: translateY(-2px); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--text-secondary); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--blue), transparent);
+    animation: scrollAnim 1.5s infinite;
+  }
+  @keyframes scrollAnim {
+    0%{opacity:0;transform:scaleY(0);transform-origin:top}
+    50%{opacity:1;transform:scaleY(1)}
+    100%{opacity:0;transform:scaleY(1);transform-origin:bottom}
+  }
+
+  /* SHARED SECTION */
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--blue-bright); margin-bottom: 0.75rem;
+  }
+  .section-label::before { content: ''; width: 30px; height: 1px; background: var(--blue-bright); }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .section-title span {
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  .section-divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    margin-bottom: 3rem; border-radius: 2px;
+  }
+
+  /* GLASS CARD */
+  .glass-card {
+    background: var(--bg-card); backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem;
+    transition: all 0.3s;
+  }
+  .glass-card:hover { border-color: var(--border-glow); box-shadow: var(--glow-blue); transform: translateY(-3px); }
+
+  /* ABOUT */
+  #about .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text p { color: var(--text-secondary); line-height: 1.9; margin-bottom: 1rem; font-size: 0.96rem; }
+  .about-text p strong { color: var(--cyan); }
+
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.25rem; text-align: center; transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+  }
+  .stat-card:hover { border-color: var(--border-glow); box-shadow: var(--glow-blue); transform: translateY(-3px); }
+  .stat-number {
+    font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block;
+  }
+  .stat-label { font-size: 0.76rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.25rem; }
+
+  .metrics-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    margin-top: 1.5rem; padding: 2rem;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+    position: relative; overflow: hidden;
+  }
+  .metrics-bar::before {
+    content: 'PANEL DE MÉTRICAS'; position: absolute; top: 0.75rem; left: 1.25rem;
+    font-size: 0.62rem; letter-spacing: 3px; color: var(--text-secondary);
+    font-family: 'Orbitron', sans-serif;
+  }
+  .metric { text-align: center; padding-top: 1.5rem; }
+  .metric-value {
+    font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .metric-label { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ——— SKILLS (chips, no bars) ——— */
+  .skills-block { display: flex; flex-direction: column; gap: 2rem; }
+
+  .skill-group {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem 1.75rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .skill-group::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue-dark), var(--cyan));
+  }
+  .skill-group:hover { border-color: var(--border-glow); box-shadow: var(--glow-blue); }
+
+  .skill-group-title {
+    font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 1.5px; color: var(--cyan); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.6rem; text-transform: uppercase;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.38rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.82rem; font-weight: 500;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(29,142,255,0.25);
+    background: rgba(10, 40, 100, 0.55);
+    color: var(--text-primary);
+    transition: all 0.25s; cursor: default;
+  }
+  .chip:hover {
+    border-color: var(--blue-bright);
+    background: rgba(29,142,255,0.15);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(29,142,255,0.25);
+    transform: translateY(-1px);
+  }
+  .chip-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    background: var(--blue-bright);
+  }
+  .chip-dot.cyan { background: var(--cyan); }
+  .chip-dot.mid  { background: var(--blue-mid); }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+
+  .project-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; transition: all 0.3s;
+    position: relative;
+  }
+  .project-card:hover { border-color: var(--border-glow); box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--glow-blue); transform: translateY(-5px); }
+
+  .project-img {
+    height: 160px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-img-bg { position: absolute; inset: 0; }
+  .project-icon { font-size: 3rem; position: relative; z-index: 1; }
+  .project-body { padding: 1.25rem; }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+  .tag {
+    padding: 0.2rem 0.65rem;
+    background: rgba(13,111,212,0.15); border: 1px solid rgba(29,142,255,0.25);
+    border-radius: 100px; font-size: 0.7rem; color: var(--blue-bright); letter-spacing: 0.3px;
+  }
+  .tag.alt { background: rgba(0,212,255,0.1); border-color: rgba(0,212,255,0.25); color: var(--cyan); }
+
+  .project-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+  .project-desc { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+  .project-links { display: flex; gap: 0.75rem; }
+  .project-link { font-size: 0.8rem; color: var(--blue-bright); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; transition: color 0.2s; }
+  .project-link:hover { color: var(--cyan); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, var(--blue), var(--cyan), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+  .timeline-dot {
+    position: absolute; left: -2.4rem; top: 0.4rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--blue); box-shadow: 0 0 10px var(--blue);
+    border: 2px solid var(--bg-primary);
+  }
+  .timeline-dot.alt { background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+  .timeline-dot.dim { background: var(--blue-mid); box-shadow: 0 0 10px var(--blue-mid); }
+  .timeline-year { font-size: 0.72rem; color: var(--blue-bright); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.25rem; font-family: 'Orbitron', sans-serif; }
+  .timeline-title { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.3rem; font-family: 'Space Grotesk', sans-serif; }
+  .timeline-org { font-size: 0.85rem; color: var(--cyan); margin-bottom: 0.5rem; }
+  .timeline-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.7; }
+
+  /* CERTS */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+  .cert-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.25rem; display: flex; gap: 1rem; align-items: flex-start; transition: all 0.3s;
+  }
+  .cert-card:hover { border-color: rgba(0,212,255,0.4); box-shadow: var(--glow-cyan); transform: translateY(-2px); }
+  .cert-icon {
+    width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(13,111,212,0.25), rgba(0,212,255,0.1));
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    border: 1px solid rgba(29,142,255,0.2);
+  }
+  .cert-info h4 { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.2rem; font-family: 'Space Grotesk', sans-serif; }
+  .cert-info p { font-size: 0.76rem; color: var(--text-secondary); }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    text-decoration: none; transition: all 0.3s; color: inherit;
+  }
+  .contact-item:hover { border-color: var(--border-glow); box-shadow: var(--glow-blue); transform: translateX(4px); }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(13,111,212,0.25), rgba(0,212,255,0.1));
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    border: 1px solid rgba(29,142,255,0.2);
+  }
+  .contact-details span { display: block; font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+  .contact-details strong { font-size: 0.9rem; color: var(--text-primary); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.76rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+  .form-group input, .form-group textarea {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.75rem 1rem; color: var(--text-primary);
+    font-family: 'Inter', sans-serif; font-size: 0.9rem; transition: border-color 0.3s; outline: none; resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(29,142,255,0.12); }
+  .form-group textarea { min-height: 120px; }
+  .form-submit {
+    padding: 0.85rem;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    border: none; border-radius: 8px; color: #fff;
+    font-weight: 600; font-size: 0.9rem; cursor: pointer;
+    letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s;
+    box-shadow: 0 0 25px rgba(29,142,255,0.25);
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(29,142,255,0.45); }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1; padding: 2rem; text-align: center;
+    border-top: 1px solid var(--border); background: rgba(2,9,21,0.95);
+  }
+  .footer-tagline { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem; }
+  .footer-tagline em { color: var(--cyan); font-style: normal; }
+  .footer-copy { font-size: 0.76rem; color: rgba(122,175,212,0.45); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: linear-gradient(135deg, #05122e, #0a2060);
+    border: 1px solid var(--cyan); border-radius: 12px;
+    padding: 1rem 1.5rem; color: var(--cyan); font-size: 0.88rem; z-index: 9999;
+    transform: translateY(100px); opacity: 0; transition: all 0.4s;
+    box-shadow: 0 0 20px rgba(0,212,255,0.2);
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #about .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .metrics-bar { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+  }
+  @media (max-width: 600px) {
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .metrics-bar { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>M.Sc. Romel Percy Melgarejo Bolivar</h1>
-        <p>Ingeniero Estadístico e Informático | Especialista en TI, Ciencia de Datos y Docencia Universitaria</p>
-    </header>
+<canvas id="bg-canvas"></canvas>
+<div class="grid-overlay"></div>
 
-    <div class="container">
-        
-        <!-- SECCIÓN 1: RESUMEN EJECUTIVO -->
-        <section id="resumen">
-            <h2>📝 Resumen Profesional</h2>
-            <p>Profesional peruano de la ingeniería con competencias avanzadas en Ciencia de Datos, redes telemáticas, tecnologías Web y simulación de entornos tridimensionales. Sólido trasfondo en la investigación científica aplicada al ámbito de la salud y educación, respaldado por la dirección de proyectos y cargos de liderazgo institucional en la región Puno [CTI Vitae - CONCYTEC].</p>
-        </section>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MC.DEV</div>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre Mí</a></li>
+    <li><a href="#skills">Habilidades</a></li>
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#experience">Experiencia</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="toggleNav()">☰</button>
+</nav>
 
-        <!-- SECCIÓN 2: FORMACIÓN ACADÉMICA Y IDIOMAS (DISEÑO EN CUADRÍCULA) -->
-        <div class="grid-2">
-            <section id="educacion">
-                <h2>🎓 Formación Superior</h2>
-                <ul>
-                    <li>
-                        <strong>Magíster Scientiae en Informática</strong><br>
-                        Mención en Gerencia de TIC — Universidad Nacional del Altiplano [CTI Vitae - CONCYTEC]
-                    </li>
-                    <li>
-                        <strong>Ingeniero Estadístico e Informático</strong><br>
-                        Título Profesional — Universidad Nacional del Altiplano [CTI Vitae - CONCYTEC]
-                    </li>
-                    <li>
-                        <strong>Bachiller en Ciencias Estadísticas e Informática</strong><br>
-                        Grado Académico — Universidad Nacional del Altiplano [CTI Vitae - CONCYTEC]
-                    </li>
-                    <li>
-                        <strong>Especialidad en Mecatrónica Automotriz</strong><br>
-                        Estudios Técnicos — I.S.T. José Antonio Encinas (Puno)
-                    </li>
-                </ul>
-            </section>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Disponible para proyectos</div>
+    <div class="avatar-ring">
+      <div class="avatar-inner">MC</div>
+    </div>
+    <h1 class="hero-name">Marco Chura</h1>
+    <p class="hero-subtitle">Puno, Perú · Universidad Nacional del Altiplano</p>
+    <div class="typed-container">
+      <span class="typed-text" id="typed"></span><span class="typed-cursor"></span>
+    </div>
+    <p class="hero-desc">
+      Estudiante universitario y desarrollador enfocado en soluciones tecnológicas integrales que combinan
+      el desarrollo de software, infraestructura cloud y modelamiento inteligente de datos. Apasionado por
+      la investigación académica y los sistemas distribuidos.
+    </p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="downloadCV()">⬇ Descargar CV</button>
+      <a href="#contact" class="btn-secondary">✉ Contactar</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
 
-            <section id="idiomas">
-                <h2>🌐 Competencias Lingüísticas</h2>
-                <ul>
-                    <li><strong>Quechua:</strong> Lengua Nativa (Nivel Avanzado)</li>
-                    <li><strong>Inglés:</strong> Nivel Intermedio (Lectura y Escritura)</li>
-                    <li><strong>Portugués:</strong> Nivel Intermedio (Certificado de Suficiencia)</li>
-                </ul>
-                <br>
-                <div style="text-align: center;">
-                    <a href="https://concytec.gob.pe" target="_blank" class="btn-verify">
-                        ✓ Verificar Perfil Oficial CONCYTEC
-                    </a>
-                </div>
-            </section>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Perfil profesional</div>
+    <h2 class="section-title">Sobre <span>Mí</span></h2>
+    <div class="section-divider"></div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Soy <strong>Guian Marco Chura Paye</strong>, estudiante de la <strong>Universidad Nacional del Altiplano</strong> en Puno, Perú. Me especializo en soluciones tecnológicas integrales que combinan desarrollo de software, ciencia de datos e infraestructura cloud moderna.</p>
+        <p>Cuento con experiencia en el despliegue de arquitecturas cloud orientadas a la <strong>observabilidad avanzada</strong> mediante herramientas como OpenTelemetry dentro de Google Cloud, así como en el diseño e integración de <strong>hardware de alto rendimiento</strong>.</p>
+        <p>Mi producción académica incluye un artículo enviado a la <strong>Conferencia Internacional ICALTER</strong> sobre simulación de mercados digitales mediante modelos basados en agentes (Agent-Based Models), reflejando mi interés en la investigación formal y los sistemas complejos.</p>
+        <p>Me interesa especialmente la <strong>inteligencia artificial</strong>, los sistemas embebidos (Raspberry Pi, FPV), los agentes inteligentes y la electrónica de prototipado rápido.</p>
+      </div>
+
+      <div class="reveal">
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-number">7+</span>
+            <span class="stat-label">Repositorios GitHub</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">1</span>
+            <span class="stat-label">Paper enviado a ICALTER</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">4+</span>
+            <span class="stat-label">Áreas de especialización</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Curiosidad técnica</span>
+          </div>
         </div>
+        <div class="metrics-bar reveal">
+          <div class="metric">
+            <div class="metric-value" data-count="92">0</div>
+            <div class="metric-label">Análisis de datos</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" data-count="87">0</div>
+            <div class="metric-label">Desarrollo SW</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" data-count="90">0</div>
+            <div class="metric-label">Estadística</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value" data-count="83">0</div>
+            <div class="metric-label">Investigación</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- SECCIÓN 3: EXPERIENCIA INSTITUCIONAL -->
-        <section id="experiencia">
-            <h2>💼 Experiencia Laboral e Institucional</h2>
-            <ul>
-                <li>
-                    <strong>Presidente del Capítulo de Ingenieros Estadísticos e Informáticos</strong><br>
-                    Colegio de Ingenieros del Perú — Consejo Departamental Puno
-                    <br><span class="badge">Octubre 2022 - Actualidad</span>
-                </li>
-                <li>
-                    <strong>Docente Universitario Ordinario / Investigador</strong><br>
-                    Universidad Nacional del Altiplano Puno (UNA Puno)
-                    <br><span class="badge">2020 - Actualidad</span>
-                </li>
-                <li>
-                    <strong>Docente Auxiliar Ordinario</strong><br>
-                    Universidad Nacional de Moquegua (UNAM) [CTI Vitae - CONCYTEC]
-                </li>
-            </ul>
-        </section>
+<!-- SKILLS -->
+<section id="skills" style="background: linear-gradient(180deg, transparent, rgba(0,30,90,0.18), transparent);">
+  <div class="section-inner">
+    <div class="section-label">Competencias técnicas</div>
+    <h2 class="section-title"><span>Habilidades</span> & Tecnologías</h2>
+    <div class="section-divider"></div>
 
-        <!-- SECCIÓN 4: PROPIEDAD INTELECTUAL -->
-        <section id="propiedad-intelectual">
-            <h2>🛠️ Registro de Software y Patentes (INDECOPI)</h2>
-            <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">Soluciones tecnológicas y sistemas con derechos de autor reconocidos por el Estado Peruano:</p>
-            <ul>
-                <li>
-                    <span class="project-title">Criptologin</span> — Módulo integrable de validación de usuarios mediante token USB DNI electrónico (Reg. 31152022) [CTI Vitae - CONCYTEC].
-                </li>
-                <li>
-                    <span class="project-title">Enviromaker</span> — Software de procesamiento y generación de ambientes tridimensionales (Reg. 31132022) [CTI Vitae - CONCYTEC].
-                </li>
-                <li>
-                    <span class="project-title">GLPAK GUI</span> — Interfaz gráfica para renderizado 3D en ventanas Win GDI+ (Reg. 31122022) [CTI Vitae - CONCYTEC].
-                </li>
-                <li>
-                    <span class="project-title">Plataforma de Certificación Electrónica</span> — Desarrollo arquitectónico de software para emisión de firmas seguras (Reg. 1382017) [CTI Vitae - CONCYTEC].
-                </li>
-            </ul>
-        </section>
+    <div class="skills-block">
 
-        <!-- SECCIÓN 5: PRODUCCIÓN CIENTÍFICA -->
-        <section id="investigacion">
-            <h2>🔬 Producción Científica e Investigación</h2>
-            <ul>
-                <li>
-                    <strong>Capítulo de Libro (2023):</strong> "Predicción de diabetes en mujeres mediante un modelo probabilístico basado en Redes Bayesianas" en la publicación internacional <em>O Cuidado em Saúde Baseado em Evidências</em> [CTI Vitae - CONCYTEC].
-                </li>
-                <li>
-                    <strong>Artículo de Revista (2022):</strong> "Arquitectura pervasiva con tecnologías WebRTC híbridas para el desarrollo de un framework Modelo Vista Controlador de tiempo real" [CTI Vitae - CONCYTEC].
-                </li>
-                <li>
-                    <strong>Tesis de Postgrado (2021):</strong> "Redes privadas virtuales multimedia y su influencia en la seguridad de la información" — Universidad Nacional del Altiplano.
-                </li>
-            </ul>
-            
-            <!-- CONTENEDOR DE ENLACES DE VERIFICACIÓN -->
+      <div class="skill-group reveal">
+        <div class="skill-group-title">💻 Programación & Desarrollo</div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot"></span>Python</span>
+          <span class="chip"><span class="chip-dot"></span>R</span>
+          <span class="chip"><span class="chip-dot"></span>Java</span>
+          <span class="chip"><span class="chip-dot"></span>JavaScript</span>
+          <span class="chip"><span class="chip-dot"></span>SQL</span>
+          <span class="chip"><span class="chip-dot"></span>HTML / CSS</span>
+          <span class="chip"><span class="chip-dot"></span>Git & GitHub</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">📊 Estadística & Ciencia de Datos</div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot cyan"></span>Regresión lineal & múltiple</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Series temporales</span>
+          <span class="chip"><span class="chip-dot cyan"></span>ARIMA / SARIMA</span>
+          <span class="chip"><span class="chip-dot cyan"></span>ARCH / GARCH</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Machine Learning</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Visualización de datos</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Posit Cloud</span>
+          <span class="chip"><span class="chip-dot cyan"></span>ggplot2</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">☁️ Cloud & Infraestructura</div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot mid"></span>Google Cloud Platform</span>
+          <span class="chip"><span class="chip-dot mid"></span>OpenTelemetry</span>
+          <span class="chip"><span class="chip-dot mid"></span>Observabilidad & Telemetría</span>
+          <span class="chip"><span class="chip-dot mid"></span>Sistemas Distribuidos</span>
+          <span class="chip"><span class="chip-dot mid"></span>GitHub Pages</span>
+          <span class="chip"><span class="chip-dot mid"></span>Arquitectura Cloud</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">🔬 Investigación & Ciencia</div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot"></span>Metodología científica</span>
+          <span class="chip"><span class="chip-dot"></span>Redacción académica</span>
+          <span class="chip"><span class="chip-dot"></span>Análisis cuantitativo</span>
+          <span class="chip"><span class="chip-dot"></span>Agent-Based Models</span>
+          <span class="chip"><span class="chip-dot"></span>Elaboración de tesis</span>
+          <span class="chip"><span class="chip-dot"></span>Métodos numéricos</span>
+          <span class="chip"><span class="chip-dot"></span>EasyChair</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">🛠️ Hardware & Sistemas Embebidos</div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot cyan"></span>Raspberry Pi 5</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Arquitectura x86 multi-núcleo</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Benchmarking de hardware</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Firmware / BIOS</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Vehículos autónomos / FPV</span>
+          <span class="chip"><span class="chip-dot cyan"></span>Electrónica Hobbyist</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">🌐 Idiomas</div>
+        <div class="chips">
+          <span class="chip"><span class="chip-dot"></span>Español — Lengua materna</span>
+          <span class="chip"><span class="chip-dot mid"></span>Inglés — Básico-Intermedio (CELEN)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Portafolio técnico</div>
+    <h2 class="section-title">Proyectos <span>Destacados</span></h2>
+    <div class="section-divider"></div>
+
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#001a40,#0a3575);"></div>
+          <span class="project-icon">🤖</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Agent-Based Models</span><span class="tag alt">Investigación</span><span class="tag">ICALTER</span></div>
+          <h3 class="project-title">Simulación de Mercados Digitales</h3>
+          <p class="project-desc">Artículo de investigación enviado a la Conferencia Internacional ICALTER. Modela dinámicas de mercados digitales mediante agentes autónomos con comportamiento emergente.</p>
+          <div class="project-links"><a href="https://github.com/I-m-Marco" target="_blank" class="project-link">⌥ GitHub</a></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#00142e,#052a5a);"></div>
+          <span class="project-icon">📈</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">R</span><span class="tag alt">ARIMA</span><span class="tag">Series temporales</span></div>
+          <h3 class="project-title">Análisis Estadístico con R</h3>
+          <p class="project-desc">Repositorio de análisis estadístico avanzado: modelos ARIMA, GARCH, regresión múltiple y visualizaciones con ggplot2 aplicados a datos reales.</p>
+          <div class="project-links"><a href="https://github.com/I-m-Marco/analisi-R" target="_blank" class="project-link">⌥ GitHub</a></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#001530,#063060);"></div>
+          <span class="project-icon">☁️</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Google Cloud</span><span class="tag alt">OpenTelemetry</span><span class="tag">Observabilidad</span></div>
+          <h3 class="project-title">Infraestructura Cloud con Telemetría</h3>
+          <p class="project-desc">Despliegue de arquitecturas en Google Cloud con ingesta de datos mediante OpenTelemetry para observabilidad avanzada y monitoreo en tiempo real.</p>
+          <div class="project-links"><a href="https://github.com/I-m-Marco" target="_blank" class="project-link">⌥ GitHub</a></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#05102a,#0a2050);"></div>
+          <span class="project-icon">📐</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">R</span><span class="tag alt">Estadística</span><span class="tag">Pruebas</span></div>
+          <h3 class="project-title">Tests Estadísticos en R</h3>
+          <p class="project-desc">Suite de pruebas estadísticas: hipótesis, ANOVA, test no paramétricos y análisis de varianza implementados en R con Posit Cloud.</p>
+          <div class="project-links"><a href="https://github.com/I-m-Marco/estadistica-tests-R" target="_blank" class="project-link">⌥ GitHub</a></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#001025,#041840);"></div>
+          <span class="project-icon">🔢</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">Python</span><span class="tag alt">Métodos numéricos</span><span class="tag">Scipy</span></div>
+          <h3 class="project-title">Métodos Computacionales</h3>
+          <p class="project-desc">Implementación de métodos numéricos: integración, diferenciación, ecuaciones diferenciales y optimización con Python científico.</p>
+          <div class="project-links"><a href="https://github.com/I-m-Marco/Computacional" target="_blank" class="project-link">⌥ GitHub</a></div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-img">
+          <div class="project-img-bg" style="background:linear-gradient(135deg,#020c20,#083060);"></div>
+          <span class="project-icon">🌐</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="tag">HTML</span><span class="tag alt">GitHub Pages</span><span class="tag">Web</span></div>
+          <h3 class="project-title">Página Personal — GitHub Pages</h3>
+          <p class="project-desc">Sitio web estático alojado en GitHub Pages. Portafolio personal desplegado y mantenido de forma continua en la infraestructura de GitHub.</p>
+          <div class="project-links"><a href="https://github.com/I-m-Marco/I-m-Marco.github.io" target="_blank" class="project-link">⌥ GitHub</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background:linear-gradient(180deg,transparent,rgba(0,30,100,0.12),transparent);">
+  <div class="section-inner">
+    <div class="section-label">Trayectoria</div>
+    <h2 class="section-title">Experiencia <span>Académica & Profesional</span></h2>
+    <div class="section-divider"></div>
+
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025 – Presente</div>
+        <div class="timeline-title">Investigación Académica — Conferencia ICALTER</div>
+        <div class="timeline-org">Publicación Internacional · Agent-Based Models</div>
+        <div class="timeline-desc">Elaboración y envío de artículo científico sobre simulación de mercados digitales con modelos basados en agentes. Gestión del proceso de revisión mediante la plataforma EasyChair.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot alt"></div>
+        <div class="timeline-year">2025 – Presente</div>
+        <div class="timeline-title">Desarrollo en GitHub & Proyectos Independientes</div>
+        <div class="timeline-org">GitHub · 7 repositorios activos</div>
+        <div class="timeline-desc">Desarrollo continuo de herramientas en R, Python y web. Proyectos en análisis estadístico, métodos computacionales, pruebas de hipótesis y páginas estáticas en GitHub Pages.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot dim"></div>
+        <div class="timeline-year">2024 – 2025</div>
+        <div class="timeline-title">Infraestructura Cloud & Observabilidad</div>
+        <div class="timeline-org">Google Cloud Platform · OpenTelemetry</div>
+        <div class="timeline-desc">Despliegue de arquitecturas orientadas a la observabilidad avanzada. Integración de OpenTelemetry para ingesta y análisis de telemetría en entornos cloud modernos.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2023 – Presente</div>
+        <div class="timeline-title">Estudios Universitarios de Pregrado</div>
+        <div class="timeline-org">Universidad Nacional del Altiplano · Puno, Perú</div>
+        <div class="timeline-desc">Formación en ingeniería con enfoque en sistemas de información, estadística avanzada, programación orientada a objetos y metodología científica. Convalidación de inglés en CELEN.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot alt"></div>
+        <div class="timeline-year">2022 – 2024</div>
+        <div class="timeline-title">Hardware, Sistemas Embebidos & Electrónica</div>
+        <div class="timeline-org">Proyectos personales</div>
+        <div class="timeline-desc">Diseño, ensamble y benchmarking de estaciones de trabajo x86 de alto rendimiento. Prototipado con Raspberry Pi 5 y desarrollo de sistemas FPV y vehículos autónomos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-inner">
+    <div class="section-label">Formación continua</div>
+    <h2 class="section-title"><span>Certificaciones</span> & Logros</h2>
+    <div class="section-divider"></div>
+    <div class="certs-grid">
+      <div class="cert-card reveal"><div class="cert-icon">🐍</div><div class="cert-info"><h4>Python para Data Science</h4><p>Análisis · ML · Scipy</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">📊</div><div class="cert-info"><h4>Estadística Avanzada con R</h4><p>Series temporales · ARIMA · GARCH</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">☁️</div><div class="cert-info"><h4>Google Cloud Platform</h4><p>Arquitectura cloud · Observabilidad</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">🤖</div><div class="cert-info"><h4>Agent-Based Modeling</h4><p>Investigación · Mercados digitales</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">🔬</div><div class="cert-info"><h4>Metodología de Investigación</h4><p>Redacción científica · Tesis</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">🖥️</div><div class="cert-info"><h4>Hardware & Arquitectura x86</h4><p>Benchmarking · Firmware · Ensamble</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">🏆</div><div class="cert-info"><h4>Pull Shark — GitHub</h4><p>Contribución activa al código abierto</p></div></div>
+      <div class="cert-card reveal"><div class="cert-icon">🌐</div><div class="cert-info"><h4>Inglés — CELEN (UNA Puno)</h4><p>Nivel Básico-Intermedio convalidado</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Trabajemos juntos</div>
+    <h2 class="section-title">Ponerse en <span>Contacto</span></h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <a href="mailto:coarp.gchurap@gmail.com" class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-details"><span>Correo electrónico</span><strong>coarp.gchurap@gmail.com</strong></div>
+        </a>
+        <a href="https://wa.me/51935831982" target="_blank" class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-details"><span>WhatsApp</span><strong>+51 935 831 982</strong></div>
+        </a>
+        <a href="https://github.com/I-m-Marco" target="_blank" class="contact-item">
+          <div class="contact-icon">⌥</div>
+          <div class="contact-details"><span>GitHub</span><strong>github.com/I-m-Marco</strong></div>
+        </a>
+        <div class="contact-item" style="cursor:default;">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details"><span>Ubicación</span><strong>Puno, Perú</strong></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-group"><label>Nombre completo</label><input type="text" placeholder="Tu nombre" id="f-name"></div>
+          <div class="form-group"><label>Correo electrónico</label><input type="email" placeholder="tu@correo.com" id="f-email"></div>
+          <div class="form-group"><label>Mensaje</label><textarea placeholder="¿En qué puedo ayudarte?" id="f-msg"></textarea></div>
+          <button class="form-submit" onclick="sendMsg()">Enviar Mensaje →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-tagline">"Transformando datos en conocimiento y conocimiento en <em>soluciones tecnológicas.</em>"</p>
+  <p class="footer-copy">© 2025 Guian Marco Chura Paye · Puno, Perú · Desarrollado y alojado mediante GitHub Pages.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// PARTICLES
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+
+class P {
+  constructor() { this.r(); }
+  r() {
+    this.x = Math.random()*W; this.y = Math.random()*H;
+    this.vx = (Math.random()-.5)*.25; this.vy = (Math.random()-.5)*.25;
+    this.rad = Math.random()*1.4+.3; this.a = Math.random()*.45+.08;
+    const c=['#1d8eff','#00d4ff','#4db8ff','#0d6fd4'];
+    this.c = c[Math.floor(Math.random()*c.length)];
+  }
+  update() { this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H) this.r(); }
+  draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.rad,0,Math.PI*2); ctx.fillStyle=this.c; ctx.globalAlpha=this.a; ctx.fill(); ctx.globalAlpha=1; }
+}
+
+const parts=[];
+for(let i=0;i<130;i++) parts.push(new P());
+
+function anim() {
+  ctx.clearRect(0,0,W,H);
+  parts.forEach(p=>{p.update();p.draw();});
+  for(let i=0;i<parts.length;i++) for(let j=i+1;j<parts.length;j++){
+    const dx=parts[i].x-parts[j].x,dy=parts[i].y-parts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<85){ctx.beginPath();ctx.moveTo(parts[i].x,parts[i].y);ctx.lineTo(parts[j].x,parts[j].y);ctx.strokeStyle='#1d8eff';ctx.globalAlpha=(1-d/85)*.07;ctx.lineWidth=.5;ctx.stroke();ctx.globalAlpha=1;}
+  }
+  requestAnimationFrame(anim);
+}
+anim();
+
+// TYPED
+const words=['Desarrollador de Software','Analista Estadístico','Investigador de Datos','Redactor Técnico'];
+let wi=0,ci=0,del=false;
+const el=document.getElementById('typed');
+function type(){
+  const w=words[wi];
+  if(!del){el.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(type,2000);return;}}
+  else{el.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;}}
+  setTimeout(type,del?50:90);
+}
+type();
+
+// COUNTERS
+function animateCounters(){
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const t=parseInt(el.dataset.count); let c=0; const s=t/60;
+    const tm=setInterval(()=>{c=Math.min(c+s,t);el.textContent=Math.floor(c)+'%';if(c>=t)clearInterval(tm);},16);
+  });
+}
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      const sec=e.target.closest('section');
+      if(sec&&sec.id==='about') animateCounters();
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// NAV
+function toggleNav(){
+  const l=document.querySelector('.nav-links');
+  if(l.style.display==='flex'){l.style.display='none';return;}
+  Object.assign(l.style,{display:'flex',flexDirection:'column',position:'absolute',top:'62px',right:'1rem',background:'rgba(2,9,21,0.97)',padding:'1rem',borderRadius:'12px',border:'1px solid rgba(29,142,255,0.2)',gap:'1rem'});
+}
+
+// TOAST
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+
+// CONTACT
+function sendMsg(){
+  const n=document.getElementById('f-name').value;
+  const e=document.getElementById('f-email').value;
+  const m=document.getElementById('f-msg').value;
+  if(!n||!e||!m){showToast('⚠ Completa todos los campos');return;}
+  window.location.href=`mailto:coarp.gchurap@gmail.com?subject=Contacto desde Portfolio - ${encodeURIComponent(n)}&body=${encodeURIComponent(m)}%0A%0ADesde: ${encodeURIComponent(e)}`;
+  showToast('✓ Abriendo cliente de correo...');
+}
+
+// PDF
+function downloadCV(){
+  showToast('⚙ Generando CV en PDF...');
+  setTimeout(()=>{
+    const{jsPDF}=window.jspdf;
+    const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    const PW=doc.internal.pageSize.getWidth();
+    let y=0;
+
+    doc.setFillColor(2,9,21); doc.rect(0,0,PW,52,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(22); doc.setTextColor(29,142,255);
+    doc.text('GUIAN MARCO CHURA PAYE',15,20);
+    doc.setFontSize(10); doc.setTextColor(0,212,255);
+    doc.text('Desarrollo de Software  |  Modelamiento y Análisis de Datos  |  Hardware & TI',15,28);
+    doc.setFontSize(9); doc.setTextColor(180,210,240);
+    doc.text('Puno, Perú  ·  coarp.gchurap@gmail.com  ·  +51 935 831 982  ·  github.com/I-m-Marco',15,36);
+    doc.text('Universidad Nacional del Altiplano',15,43);
+    y=60;
+
+    const sec=(t,col=[29,142,255])=>{
+      doc.setFillColor(...col); doc.rect(15,y-4,PW-30,.5,'F');
+      doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(...col);
+      doc.text(t.toUpperCase(),15,y); y+=6;
+    };
+    const body=(t,ind=15)=>{
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(40,40,60);
+      const ls=doc.splitTextToSize(t,PW-30-(ind-15)); doc.text(ls,ind,y); y+=ls.length*4.5+1;
+    };
+    const bold=(t,ind=15)=>{
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(20,20,50);
+      doc.text(t,ind,y); y+=5;
+    };
+
+    doc.setFillColor(248,250,255); doc.rect(0,54,PW,243,'F');
+
+    sec('Resumen Profesional');
+    body('Estudiante universitario y desarrollador enfocado en soluciones tecnológicas integrales que combinan el desarrollo de software, la infraestructura cloud y el modelamiento inteligente de datos. Con experiencia práctica implementando flujos de trabajo eficientes e infraestructura digital moderna.');
+    y+=3;
+
+    sec('Formación Académica',[0,130,200]);
+    bold('Universidad Nacional del Altiplano — Puno, Perú');
+    body('Estudios universitarios de pregrado en curso. Convalidación de inglés nivel Básico-Intermedio por el Centro de Lenguas Extranjeras (CELEN).',20);
+    y+=3;
+
+    sec('Producción Académica',[29,142,255]);
+    bold('Artículo — Conferencia Internacional ICALTER');
+    body('Simulación y diseño de mercados digitales mediante modelos basados en agentes (Agent-Based Models). Procesado mediante EasyChair.',20);
+    y+=3;
+
+    sec('Tecnologías & Habilidades',[0,130,200]);
+    bold('Programación & Desarrollo:');
+    body('Python · R · Java · JavaScript · SQL · HTML/CSS · Git & GitHub',20);
+    bold('Estadística & Ciencia de Datos:');
+    body('Regresión lineal/múltiple · Series temporales · ARIMA/SARIMA · ARCH/GARCH · Machine Learning · Visualización · Posit Cloud',20);
+    bold('Cloud & Infraestructura:');
+    body('Google Cloud Platform · OpenTelemetry · Observabilidad · Sistemas distribuidos · GitHub Pages',20);
+    bold('Hardware & Embebidos:');
+    body('Raspberry Pi 5 · Arquitectura x86 multi-núcleo · Benchmarking · Firmware · Vehículos autónomos/FPV',20);
+    bold('Investigación:');
+    body('Metodología científica · Redacción académica · Agent-Based Models · Métodos numéricos',20);
+    y+=3;
+
+    sec('Logros',[29,142,255]);
+    body('· Pull Shark Achievement — GitHub (contribuciones activas de código)');
+    body('· Convalidación de idioma inglés — CELEN, Universidad Nacional del Altiplano');
+    body('· 7 repositorios públicos activos en GitHub, incluyendo proyectos de estadística, computación y web.');
+    y+=3;
+
+    sec('Contacto',[0,130,200]);
+    body('coarp.gchurap@gmail.com  ·  +51 935 831 982  ·  github.com/I-m-Marco  ·  Puno, Perú');
+
+    doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(100,140,190);
+    doc.text('"Transformando datos en conocimiento y conocimiento en soluciones tecnológicas."',15,285);
+
+    doc.save('CV_Marco_Chura.pdf');
+    showToast('✓ CV descargado correctamente!');
+  },500);
+}
+</script>
+</body>
+</html>
